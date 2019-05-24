@@ -1,0 +1,6 @@
+CLFanalysis
+*.pdf
+*#
+*~
+Make-depend
+makeDataFromSim
