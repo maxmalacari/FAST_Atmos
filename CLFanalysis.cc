@@ -68,8 +68,8 @@ const double gLaserEnergy = 6.; // energy in mJ
 const double gLaserWl = 355.; // wavelength in nm (note: molecular atmos. tuned to 355 nm)
 const double gHmix = 0.; // aerosol mixing layer height in km
 const double gHmol = 8.; // molecular scale height in km
-const double gLmol = 14.2; // molecular horizontal attenuation length at sea level in km
-const double gZen = 87.0 * TMath::Pi()/180.; // rad - CLF pointing zenith
+const double gLmol = 14.2; // molecular horizontal attenuation length at sea level in km (Bucholz)
+const double gZen = 0.0 * TMath::Pi()/180.; // rad - CLF pointing zenith
 const double gAzi = 234.0 * TMath::Pi()/180.; // rad - CLF pointing azimuth
 const double gCorex = 0.0; // km - CLF location
 const double gCorey = 0.0; // km - CLF location
@@ -80,7 +80,7 @@ const double gTelY = -23.95; // km - FAST position Auger
 const double gHeight = 1.4; // km - ground height at TA/Auger
 //const double gFovZen = 74.9 * TMath::Pi() / 180.0; // FAST pointing direction
 //const double gFovAzi = (-59.8) * TMath::Pi() / 180.0;
-const double gFovZen = 75.03 * TMath::Pi() / 180.0; // FAST pointing direction
+const double gFovZen = 75.03 * TMath::Pi() / 180.0; // FAST pointing direction Auger
 const double gFovAzi = (14.8) * TMath::Pi() / 180.0;
 const double gJitterWidth = 22; // mean jitter width in 100 ns bins taken from old data
 const int gSlideBins = 50; // number of bins either side to slide the template trace for fitting - nominally 100
@@ -543,7 +543,9 @@ double FitAtmosphere(double& Haer, double& dHaer, double& Laer, double& dLaer, d
   ptMinuit->mnparm(2,"Norm", norm, dNorm, 0.1, 2.0, ierflg);
 
   // Fix normalization?
-  //ptMinuit->FixParameter(2);
+  ptMinuit->FixParameter(0);
+  ptMinuit->FixParameter(1);
+  ptMinuit->FixParameter(2);
 
   // Rayleigh atmosphere
   if (fitRayleigh){
